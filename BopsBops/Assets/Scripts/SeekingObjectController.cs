@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//WOJTI - zabieram >:]
+
 public class SeekingObjectController : MonoBehaviour
 {
     [SerializeField] private float speed = 0.01f;
@@ -38,8 +40,9 @@ public class SeekingObjectController : MonoBehaviour
     void Update()
     {
         if (moving)
-        {
-            transform.position = new Vector2(transform.position.x + (speed * direction), transform.position.y);
+        {   
+            //todo//Jeżeli obiekt jest kinematyczny, to lepiej użyć Velocity, nie rysykujemy wtedy nagłego 'nachodzenia' na siebie obiektów w szczególnych przypadkach
+            transform.position = new Vector2(transform.position.x + (speed * direction), transform.position.y);     
         }
 
         if (Math.Abs(gameObject.transform.position.x - Camera.main.transform.position.x) > 30 || Math.Abs(gameObject.transform.position.y - Camera.main.transform.position.y) > 30)
@@ -48,13 +51,13 @@ public class SeekingObjectController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name.Equals("PlayerObject"))
+        if (collision.gameObject.name.Equals("PlayerObject"))   //todo//dużo lepiej posługiwać się tagami niż nazwami obiektów
             moving = false;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.name.Equals("PlayerObject"))
+        if (collision.gameObject.name.Equals("PlayerObject"))   //todo//dużo lepiej posługiwać się tagami niż nazwami obiektów
             moving = true;
     }
 }

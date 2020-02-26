@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//WOJTI - zabieram >:]
+
 public class SeekingObjectDeployer : MonoBehaviour
 {
     public GameObject seekingObject;
