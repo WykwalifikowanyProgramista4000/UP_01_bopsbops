@@ -6,6 +6,7 @@ public class PlayerObjectController : MonoBehaviour
 {
     private bool canHide;
     private bool hiding;
+    public Animator animator;
     [SerializeField] private float speed = 0.5f;
 
     private Rigidbody2D rigidbody;
@@ -37,6 +38,10 @@ public class PlayerObjectController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        animator.SetFloat("Speed", 0f);
+        animator.SetBool("Back", false);
+        animator.SetBool("Side", false);
+
         if (!hiding)
         {
             if (Input.GetKey(KeyCode.W)) { MoveUp(); }
@@ -49,25 +54,42 @@ public class PlayerObjectController : MonoBehaviour
     void MoveUp()
     {
         if (gameObject.transform.position.y <= 100 - renderer.size.y)
+        {
             transform.position = new Vector2(transform.position.x, transform.position.y + speed);
+            animator.SetFloat("Speed", 1f);
+            animator.SetBool("Back", true);
+        }
     }
 
     void MoveDown()
     {
         if (gameObject.transform.position.y >= -100 + renderer.size.y)
+        {
             transform.position = new Vector2(transform.position.x, transform.position.y - speed);
+            animator.SetFloat("Speed", 1f);
+        }
     }
 
     void MoveRight()
     {
         if (gameObject.transform.position.x <= 100 - renderer.size.x)
+        {
             transform.position = new Vector2(transform.position.x + speed, transform.position.y);
+            animator.SetFloat("Speed", 1f);
+            renderer.flipX = false;
+            animator.SetBool("Side", true);
+        }
     }
 
     void MoveLeft()
     {
         if (gameObject.transform.position.x >= -100 + renderer.size.x)
+        {
             transform.position = new Vector2(transform.position.x - speed, transform.position.y);
+            animator.SetFloat("Speed", 1f);
+            animator.SetBool("Side", true);
+            renderer.flipX = true;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
